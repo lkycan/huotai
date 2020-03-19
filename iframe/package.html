@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>套餐管理</title>
+    <link rel="stylesheet" href="css/borain-timeChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.4.6.0.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/borain-timeChoice.js"></script>
+       <script type="text/javascript" src="js/angular.min.js"></script>
+    <style>
+        body,
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #game {
+            position: relative;
+            padding: 20px;
+        }
+
+        #phonediv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            font-size: 16px;
+        }
+        #phonediv1,
+        #phonediv2,
+        #phonediv3,
+        #phonediv4,
+        #phonediv5,
+        #phonediv6,
+        #phonediv7,
+          #phonediv8,
+            #phonediv9
+        {
+            position: absolute;
+            background: #469ad0;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            bottom: 0px;
+            width: 100px;
+        }
+        #phonediv1{
+           left: 274px;
+              top: 0px;
+       }
+          #phonediv2{
+               left: 62px;
+             top: 107px;
+       }
+          #phonediv3{
+              left: 229px;
+             top: 107px;
+       }
+          #phonediv4{
+             left: 405px;
+             top: 107px;
+       }
+          #phonediv5{
+       left: 724px;
+             top: 107px;
+       }
+         #phonediv6{
+            left: 885px;
+             top: 107px;
+       }
+       #phonediv7 {
+          top: 107px;
+            left: 1052px;
+      }
+      /*确认修改*/
+        #phonediv8 {
+               top:300px;
+            left: 1050px;
+        }  
+
+        #phonediv9 {
+        top: 804px;
+            left: 952px;
+        }
+  
+        #tabledata {
+            position: relative;
+            width: 40%;
+          margin-top: 67px;
+        }
+
+        #tabledata tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata td {
+            position: relative;
+            text-align: center;
+        }
+
+
+
+
+        #tabledata2 {
+            position:absolute;
+            width: 40%;
+          top: 161px;
+          left: 667px;
+        }
+
+        #tabledata2 tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata2 td {
+            position: relative;
+            text-align: center;
+        }
+
+        #showdiv,
+        #editdiv {
+            position: relative;
+            display: none;
+        }
+
+        #showdiv {
+            display: block;
+        }
+
+
+        #editul {
+            position: absolute;
+             left: 850px;
+           top: 150px;
+        }
+
+        .editli {
+            position: relative;
+            min-height: 30px;
+            line-height: 30px;
+            list-style: none;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .editli1 {
+            position: absolute;
+            width: 100px;
+            color: gray;
+        }
+
+        .editli2 {
+            position: relative;
+            left: 100px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            font-size: 16px;
+            min-height: 30px;
+            width: 300px;
+        }
+
+        .editli2 input,
+        .editli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+    
+        #reditul {
+            position: absolute;
+             left: 755px;
+           top: 657px;
+        }
+
+        .reditli {
+            position: relative;
+            min-height: 30px;
+            line-height: 30px;
+            list-style: none;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .reditli1 {
+            position: absolute;
+            width: 100px;
+            color: gray;
+        }
+
+        .reditli2 {
+            position: relative;
+            left: 100px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            font-size: 16px;
+            min-height: 30px;
+            width: 300px;
+        }
+
+        .reditli2 input,
+        .reditli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+
+
+
+        #fileimg {
+            position: relative;
+            max-width: 600px;
+            max-height: 140px;
+            min-height: 40px;
+            margin-left: 0%;
+              margin-top:1%;
+        }
+        .hfont{
+            color:blue;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body ng-app="myApp" ng-controller="packageCtrl">
+    <div style=" margin-left: 583px;font-size: 25px;">套餐管理</div>
+    <div id="game"> 
+        <span style="left: 100px">当前套餐为：{{cptName}}
+         </span>
+        <button id="phonediv1" ng-click="changeCpt()">切换套餐</button>
+  </div>
+    <div>
+   <button id="phonediv2" ng-click="newNumPackage()">新增</button>
+   <button id="phonediv3" ng-click="editNumPackage()">修改</button>
+   <button id="phonediv4" ng-click="delNumPackage()">删除</button>
+    </div>
+            <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td>选择</td>
+                        <td>{{labelCount}}</td>
+                        <td>金额（元）</td>
+                        <td>{{gift}}</td>
+                    </tr>
+                </tbody>
+                <tbody id="tabledata1">
+                    <tr ng-repeat="x in packList"  >
+                        <td><input type="radio"  name="id"  value="{{x}}" ng-model="$parent.x"></td>
+                        <td>{{x.count}}</td>
+                        <td>{{x.fee}}</td>
+                        <td>{{x.gift_count}}</td>     
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+<!-- 左侧次数 -->
+<div ng-if="packageShow1"  >
+    <ul id="editul">
+        <li class="editli">
+            <div class="editli1"> {{countStr}}：</div>
+            <div class="editli2">
+             <input type="text" name="" ng-model="count">
+             <input type="hidden" ng-model="pack_id" />
+            </div>
+            
+        </li>
+        <li class="editli">
+            <div class="editli1">金额（元）:</div>
+            <div class="editli2"  >
+              <input type="text" name="" ng-model="fee">
+            </div>
+        </li>
+            <li class="editli">
+            <div class="editli1">{{giftCountStr}}：</div>
+            <div class="editli2">
+             <input type="text" name="" ng-model="gift_count" >
+            </div>
+        </li>
+    </ul>
+     <div >
+        <button id="phonediv8" ng-click="newRecharge1(count,fee,gift_count)" ng-if="newRecharge">新增</button>
+         <button id="phonediv8" ng-click="editRecharge1(pack_id,count,fee,gift_count)" ng-if="editRecharge">修改</button>
+      
+    </div>
+</div>
+
+    <script src="js/util.js"></script>
+    <script src="js/APIConnection.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/server1.js"></script>
+  <script src="js/util.js"></script>
+     <script src="js/package.js"></script>
+  <script src="js/index.js"></script>
+
+
+</body>
+
+</html>

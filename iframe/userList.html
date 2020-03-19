@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+
+    <link rel="stylesheet" href="css/borain-timeChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.4.6.0.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/borain-timeChoice.js"></script>
+       <script type="text/javascript" src="js/angular.min.js"></script>
+ 
+    <style>
+        body,
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #game {
+            position: relative;
+            padding: 20px;
+        }
+
+        #phonediv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            font-size: 16px;
+        }
+
+        #phonediv1,
+        #phonediv5,
+        #phonediv7,
+        #phonediv3 {
+            position: absolute;
+            color: #7b7b7b;
+        }
+
+        #phonediv1 {
+            left: 0px;
+        }
+
+        #phonediv3 {
+            left: 250px;
+        }
+
+        #phonediv5 {
+            left: 480px;
+        }
+
+        #phonediv7 {
+            left: 700px;
+        }
+
+
+        #phonediv8,
+        #phonediv2,
+        #phonediv6,
+        #phonediv4 {
+            position: absolute;
+            width: 100px;
+            height: 32px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 72px;
+            color: #7b7b7b;
+        }
+
+        #phonediv4 {
+            left: 330px;
+        }
+
+        #phonediv6 {
+            left: 560px;
+        }
+
+        #phonediv8 {
+            left: 750px;
+        }
+
+        #phonebtndiv,
+        #bannerbtndiv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+        }
+
+        #bannerbtndiv1,
+        #bannerbtndiv2,
+        #phonebtn,
+        #phonediv9 {
+            position: absolute;
+            background: #469ad0;
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 0px;
+        }
+
+        #bannerbtndiv1 {
+            width: 100px;
+        }
+
+        #bannerbtndiv2 {
+            width: 100px;
+            left: 150px;
+            background: #92b4ca;
+        }
+
+        #phonediv9 {
+            left: 880px;
+            width: 100px;
+        }
+
+
+        #tabledata {
+            position: relative;
+            width: 100%;
+        }
+
+        #tabledata tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata td {
+            position: relative;
+            text-align: center;
+        }
+
+
+        #showdiv,
+        #editdiv {
+            position: relative;
+            display: none;
+        }
+
+        #showdiv {
+            display: block;
+        }
+
+        #editul {
+            position: relative;
+
+        }
+
+        .editli {
+            position: relative;
+            min-height: 30px;
+            line-height: 30px;
+            list-style: none;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .editli1 {
+            position: absolute;
+            width: 100px;
+            color: gray;
+        }
+
+        .editli2 {
+            position: relative;
+            left: 100px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            font-size: 16px;
+            min-height: 30px;
+            width: 300px;
+        }
+
+        .editli2 input,
+        .editli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+        #yiban1,
+        #yiban2 {
+            width: 46%;
+        }
+
+        #yiban2 {
+            left: 2%;
+        }
+
+        .paddtb {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        .shuoming {
+            position: relative;
+            font-size: 12px;
+            color: gray;
+        }
+
+        .editclass {
+            color: blue;
+            cursor: pointer;
+        }
+
+        #fileimg {
+            position: relative;
+            max-width: 600px;
+            max-height: 140px;
+            min-height: 40px;
+            margin-left: 0%;
+              margin-top:1%;
+        }
+.hfont{
+    color:blue;
+    font-weight:bold;
+}
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="userListCtrl">
+    <div id="game">
+        <div id="showdiv"   ng-if="userShow1">
+            <div id="phonediv">
+                <span id="phonediv1">姓名</span>
+           
+  <input  id="phonediv2" type="text" value=""  ng-model="name" />
+
+  <span id="phonediv3">手机号</span>
+  <input  id="phonediv4" type="text" value=""  ng-model="phone" />
+
+  <span id="phonediv5">年级</span>
+  <select  id="phonediv6" ng-model="grade" ng-change="changeGrade(grade,names)">
+       <option value="">全部</option>
+    <option ng-repeat="x in names" value="{{x._id}}">{{x.name}}</option>
+</select>
+<!--    <span id="phonediv7">学科</span>
+  <select id="phonediv8" ng-model="subjectid" >
+    <option ng-repeat="x in datas" value="{{x.subjectid}}">{{x.name}}</option>
+</select>
+         -->        <button id="phonediv9" ng-click="userlist(name,phone,grade,0,0)">搜索</button>
+            </div>
+            <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td>用户编号</td>
+                        <td>创建时间</td>
+                        <td>手机号</td>
+                        <td>昵称</td>
+                        <td>真实姓名</td>
+                        <td>年级</td>
+                        <td>学校</td>
+                        <td>性别</td>
+                        <td>交易记录</td>
+                        <td>操作</td>
+                    </tr>
+                </tbody>
+
+
+                <tbody id="tabledata1">
+                    <tr ng-repeat="x in list"  >
+                        <td>{{x.user_id}}</td>
+                        <td>{{x.time}}</td>
+                        <td>{{x.phone}}</td>
+                        <td>{{x.display_name}}</td>
+                        <td>{{x.realname}}</td>
+                        <td>{{x.class_name}}</td>
+                        <td>{{x.school}}</td>
+                        <td>{{x.gender}}</td>
+                        <td>{{x.number}}</td>
+                        <td><span style="color:red" ng-click="detail(x)">详情</span></td>
+                    </tr>
+                </tbody>
+            </table> 
+               <div id="phonebtndiv">
+                <button id="lastPagedom" ng-click="lastPage1(name,phone,grade)">上一页</button>
+              {{page_num1}}
+                <button id="nextPagedom" ng-click="nextPage1(name,phone,grade)">下一页</button>
+                总数{{count1}}
+            </div>     
+        </div>
+     <div id="showdiv"   ng-if="userShow2">
+    <div style="width:150px;height:150px">
+  <img class="fileimg" id="fileimg"  src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNmIxMzZkM2YxMyB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE2YjEzNmQzZjEzIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA1NDY4NzUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="" width="150" height="150"/>
+</div>
+ <p style="margin-left:180px;margin-top: -143px;">手机号：{{detailMsg.phone}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注册时间:{{detailMsg.time}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp最后登录时间:{{detailMsg.logintime}}</p></br>
+  <p style="margin-left:180px;margin-top: 0px;">
+昵称：{{detailMsg.display_name}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp真实姓名:{{detailMsg.realname}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp性别：{{detailMsg.gender}}</p> </br> 
+<p style="margin-left:180px;margin-top: 0px;">
+学校：{{detailMsg.school}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp年级:{{detailMsg.class_name}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp地区：{{detailMsg.area}}</p> </br> <p style="margin-left:180px;margin-top: 0px;">
+收货地址：{{detailMsg.address}} </p></br> 
+交易记录                       <a ng-click="showAll(detailMsg.user_id,0,0)" style="margin-left: 1000px;color: red">查看全部</a>
+   <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td>订单编号</td>
+                        <td>购买用户</td>
+                        <td>创建时间</td>
+                        <td>购买课程</td>
+                        <td>主讲老师</td>
+                        <td>上课日期</td>
+                        <td>赠送教材</td>
+                        <td>物流信息</td>
+                        <td>状态</td>
+                        <td>操作</td>
+                    </tr>
+                </tbody>
+
+
+                <tbody id="tabledata1">
+                    <tr ng-repeat="x in detailMsg.orderinfo"  >
+                        <td>{{x.order_number}}</td>
+                        <td>{{x.display_name}}</td>
+                        <td>{{x.time}}</td>
+                        <td>{{x.name}}</td>
+                        <td>{{x.mainname}}</td>
+                        <td>{{x.during}}</td>
+                        <td>{{x.material=='false'?'否':'是'}}</td>
+                        <td>{{x.transfer}}</td>
+                        <td>{{x.status}}</td>
+                        <td><a style="color:red" ng-click="userorderdetail(x)">详情</a></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+     </div>
+
+
+       <div id="showdiv"   ng-if="userShow3">
+
+   <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td>订单编号</td>
+                        <td>购买用户</td>
+                        <td>创建时间</td>
+                        <td>购买课程</td>
+                        <td>主讲老师</td>
+                        <td>上课日期</td>
+                        <td>赠送教材</td>
+                        <td>物流信息</td>
+                        <td>状态</td>
+                        <td>操作</td>
+                    </tr>
+                </tbody>
+
+
+                <tbody id="tabledata1">
+                    <tr ng-repeat="x in listAll"  >
+                        <td>{{x.order_number}}</td>
+                        <td>{{x.display_name}}</td>
+                        <td>{{x.time}}</td>
+                        <td>{{x.name}}</td>
+                        <td>{{x.mainname}}</td>
+                        <td>{{x.during}}</td>
+                        <td>{{x.material=='false'?'否':'是'}}</td>
+                        <td>{{x.transfer}}</td>
+                        <td>{{x.status}}</td>
+                        <td><a style="color:red" ng-click="userorderdetail(x)">详情</a></td>
+                    </tr>
+                </tbody>
+            </table>
+   <div id="phonebtndiv">
+                <button id="lastPagedom" ng-click="lastPage2(detailMsg.user_id)">上一页</button>
+              {{page_num2}}
+                <button id="nextPagedom" ng-click="nextPage2(detailMsg.user_id)">下一页</button>
+                总数{{count2}}
+            </div>  
+     </div>
+
+
+      <div  id="showdiv" ng-if="userShow4">
+     <span>订单编号：{{userorderdetaillist.order_number}}</span>
+     <span style="margin-left: 81% ">状态：{{userorderdetaillist.status}}</span>
+     <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr>
+                <td>课程名称</td>
+                <td>主讲老师</td>
+                <td>上课日期</td>
+                <td>赠送教材</td>
+                <td>价格</td>
+            </tr>
+        </tbody>
+        <tbody id="tabledata1">
+          <tr  >
+            <td>{{userorderdetaillist.name}}</td>
+            <td>{{userorderdetaillist.mainname}}</td>
+            <td>{{userorderdetaillist.during}}</td>   
+            <td>{{userorderdetaillist.material=='false'?'否':'是'}}</td>   
+            <td>{{userorderdetaillist.price}}</td>                   
+        </tr>        
+    </tbody>
+</table></br></br></br>
+<!--真实姓名 昵称 电话 -->
+<div>
+   <span>真实姓名：{{userorderdetaillist.realname}}</span></br>
+   <span>昵称：{{userorderdetaillist.display_name}}</span></br>
+   <span>电话：{{userorderdetaillist.phone}}</span></br>
+</div></br></br></br>
+<!-- 订单号，创建时间，支付时间，支付渠道，支付单号 -->
+<div>
+    <span>订单编号：{{userorderdetaillist.order_number}}</span></br>
+    <span>创建时间：{{userorderdetaillist.time}}</span></br>
+    <span>支付时间：{{userorderdetaillist.paytime}}</span></br>
+    <span>支付渠道：{{userorderdetaillist.payway}}</span></br>
+    <span>支付单号：{{userorderdetaillist.payid}}</span></br>
+
+</div></br></br></br>
+<!-- 赠送材料   收货地址  物流信息： -->
+<div ng-if="isMatcontent"><!-- ng-if="isMatcontent" -->
+    <span>赠送材料:{{userorderdetaillist.matcontent}}</span></br>
+    <span>收货地址:{{userorderdetaillist.address.name}},{{userorderdetaillist.address.phone}},
+        {{userorderdetaillist.address.province}}{{userorderdetaillist.address.city}}{{userorderdetaillist.address.county}}
+    </span></br>
+    <span>物流信息:<span ng-click="transferShow()" class="hfont" ng-if="isTrans" >填写物流信息</span>  {{userorderdetaillist.transfer}}</span></br>
+
+
+</div></br></br></br>
+
+<!-- 物流信息填写 -->
+<div  ng-if="newOrder2">
+    <ul id="editul">
+        <li class="editli">
+            <div class="editli1">物流公司</div>
+            <div class="editli2">
+                <input type="text"  ng-model="transfername" >
+            </div>
+            
+        </li>
+        <li class="editli">
+            <div class="editli1">物流单号</div>
+            <div class="editli2"  >
+                <input type="text"  ng-model="transferid">
+            </div>
+        </li>
+    </ul>
+
+    <div >
+        <button id="seasonSave" ng-click="esaveOrder(transfername,transferid,userorderdetaillist._id)">保存</button>
+        <button id="seasonCancel" ng-click="ecancelOrder()">取消</button>
+    </div>
+</div></br></br></br>
+
+</div>
+
+    <script src="js/util.js"></script>
+    <script src="js/APIConnection.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/server1.js"></script>
+  <script src="js/util.js"></script>
+     <script src="js/userList.js"></script>
+  <script src="js/index.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>季节管理</title>
+    <meta name="viewport" id="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+
+    <link rel="stylesheet" href="css/borain-timeChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.4.6.0.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/borain-timeChoice.js"></script>
+       <script type="text/javascript" src="js/angular.min.js"></script>
+ 
+    <style>
+    html,body{ margin:0px; height:100%; }
+        body,
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #game {
+            position: relative;
+            padding: 20px;
+        }
+
+        #phonediv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            font-size: 16px;
+        }
+
+        #phonediv1,
+        #phonediv5,
+        #phonediv7,
+        #phonediv3 {
+            position: absolute;
+            color: #7b7b7b;
+        }
+
+        #phonediv1 {
+            left: 0px;
+        }
+
+        #phonediv3 {
+            left: 210px;
+        }
+
+        #phonediv5 {
+            left: 480px;
+        }
+
+        #phonediv7 {
+            left: 700px;
+        }
+
+
+        #phonediv8,
+        #phonediv2,
+        #phonediv6,
+        #phonediv4 {
+            position: absolute;
+            width: 100px;
+            height: 32px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 72px;
+            color: #7b7b7b;
+        }
+
+        #phonediv4 {
+            left: 290px;
+        }
+
+        #phonediv6 {
+            left: 560px;
+        }
+
+        #phonediv8 {
+            left: 750px;
+        }
+
+        #phonebtndiv,
+        #bannerbtndiv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+        }
+
+        #selectdivone1,
+        #selectdivone2 {
+            position: absolute;
+            background: #469ad0;
+            width: 120px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+
+            bottom: 20px;
+            margin: 0px auto;
+            left: 0px;
+            right: 0px;
+        }
+
+        #selectdivone1 {
+            left: -200px;
+        }
+
+        #selectdivone2 {
+            left: 200px;
+            background: #779ab1;
+        }
+
+        #bannerbtndiv1,
+        #bannerbtndiv2,
+        #phonebtn,
+        #phonediv9 {
+            position: absolute;
+            background: #469ad0;
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+
+            top: 0px;
+            bottom: 0px;
+            margin: auto -450px;
+            left: 0px;
+        }
+
+        #bannerbtndiv1 {
+            width: 100px;
+        }
+
+        #bannerbtndiv2 {
+            width: 100px;
+            left: 150px;
+            background: #92b4ca;
+        }
+
+        #phonediv9 {
+            left: 450px;
+            width: 100px;
+        }
+
+
+        #tabledata {
+            position: relative;
+            width: 50%;
+        }
+
+        #tabledata tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata td {
+            position: relative;
+            text-align: center;
+        }
+
+
+        #showdiv,
+        #editdiv {
+            position: relative;
+            display: none;
+        }
+
+        #showdiv {
+            display: block;
+        }
+
+        #editul {
+            position: relative;
+
+        }
+
+        .editli {
+            position: relative;
+            min-height: 30px;
+            line-height: 30px;
+            list-style: none;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .editli1 {
+            position: absolute;
+            width: 100px;
+            color: gray;
+        }
+
+        .editli2 {
+            position: relative;
+            left: 100px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            font-size: 16px;
+            min-height: 30px;
+            width: 300px;
+        }
+
+        .editli2 input,
+        .editli2 textarea,
+        .editli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+        .editli2 textarea {
+            height: 100px;
+        }
+
+        .editli2 .yiban1,
+        .editli2 .yiban2 {
+            width: 26%;
+        }
+
+        .editli2 .yiban2 {
+            left: 2%;
+        }
+
+        .yibantext1 {
+            position: absolute;
+            left: 25px;
+            pointer-events: none;
+        }
+
+        .yibantext2 {
+            position: absolute;
+            left: 110px;
+            pointer-events: none;
+        }
+
+        .paddtb {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        .shuoming {
+            position: relative;
+            font-size: 12px;
+            color: gray;
+        }
+
+        #bianji {
+            color: blue;
+            position: relative;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        #xuanze {
+            color: blue;
+            position: relative;
+            margin-left: 30px;
+            cursor: pointer;
+            padding: 6px 20px 6px 20px;
+            background: #469ad0;
+            color: white;
+            border-radius: 4px;
+        }
+
+        #selectdiv {
+            position: fixed;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.8);
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        #selectdivone {
+            position: fixed;
+            width: 500px;
+            height: 300px;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            top: 0px;
+            bottom: 0px;
+            background: white;
+            border-radius: 6px;
+        }
+
+
+        .selectdivonediv {
+            position: relative;
+            width: 90%;
+            left: 5%;
+            top: 20px;
+            min-height: 100px;
+            line-height: 20px;
+        }
+
+        .selectdivonediv span {
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            top: 0px;
+
+        }
+
+        .selectdivonediv div {
+            position: relative;
+            left: 50px;
+            top: 0px;
+            margin-bottom: 10px;
+        }
+
+        .selectdivonediv input,
+        .selectdivonediv label {
+            position: relative;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            font-size: 14px;
+        }
+
+        .selectdivonediv label {
+            margin-right: 20px;
+            top: -3px;
+            left: 4px;
+        }
+
+        .seasonAdd {
+            position: absolute;
+
+    top: 82px;
+   margin-left: 58%;
+        }
+      #phonebtn,
+        #seasonSave {
+        position: absolute;
+    background: #469ad0;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    top: 147px;
+    bottom: 0px;
+    left: 40px;
+        }
+ /*   #seasonSaves {
+            left: 450px;
+            width: 100px;
+        }*/
+  #phonebtn,
+        #seasonCancel {
+       position: absolute;
+    background: #469ad0;
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    top: 147px;
+    bottom: 0px;
+    left: 310px;
+        }
+/*    #seasonCancel {
+            left: 450px;
+            width: 100px;
+        }
+*/
+    </style>
+</head>
+
+<body  ng-app="myApp" ng-controller="seasonCtrl">
+ 
+
+    <div id="game">
+        <div id="showdiv">
+            <div id="phonediv">
+                <button id="phonediv9" ng-click="newSeason()">新增季节</button>
+             
+            </div>
+            <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>序号</td>
+                        <td>季节</td>
+                        <td>排序</td>
+                        <td>操作</td>
+            
+                    </tr>
+                    <tr ng-repeat="x in names" >
+                        <td>{{$index + 1 }}</td>
+                        <td>{{x.name}}</td>
+                        <td>{{x.order}}</td>                   
+                        <td>   <button ng-click="editSeason(x)">编辑</button>   <button ng-click="delSeason(x)"> 删除</button> </td>
+                    </tr>
+         
+
+            </table>
+        </div>
+      
+        <div   class="seasonAdd" ng-if="newSeason1">
+            <span>新增季节</span>
+            <ul id="editul">
+                <li class="editli">
+                    <div class="editli1">名称</div>
+                    <div class="editli2">
+                        <input type="text" name="用户名" id="userName" ng-model="$parent.seasonName" >
+                    </div>
+                </li>
+                <li class="editli">
+                    <div class="editli1">排序</div>
+                    <div class="editli2"  >
+                        <input type="text"  ng-model="$parent.seasonOrder">
+                    </div>
+                </li>
+            </ul>
+
+            <div >
+                <button id="seasonSave" ng-click="saveSeason()">保存</button>
+                <button id="seasonCancel" ng-click="cancelSeason()">取消</button>
+            </div>
+        </div>
+      <div   class="seasonAdd" ng-if="newSeason2">
+            <span>修改季节</span>
+            <ul id="editul">
+                <li class="editli">
+                    <div class="editli1">名称</div>
+                    <div class="editli2">
+                        <input type="text" name="用户名" id="userName" ng-model="$parent.seasonName" >
+                    </div>
+                </li>
+                <li class="editli">
+                    <div class="editli1">排序</div>
+                    <div class="editli2"  >
+                        <input type="text"  ng-model="$parent.seasonOrder">
+                    </div>
+                </li>
+            </ul>
+
+            <div >
+                <button id="seasonSave" ng-click="esaveSeason()">保存</button>
+                <button id="seasonCancel" ng-click="ecancelSeason()">取消</button>
+            </div>
+        </div>
+  
+ 
+</div>
+   <script src="js/util.js"></script>
+    <script src="js/APIConnection.min.js"></script>
+      <script src="js/sess.js"></script>
+    <script src="js/app.js"></script>
+     <script src="js/season.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/server1.js"></script>
+</body>
+
+</html>

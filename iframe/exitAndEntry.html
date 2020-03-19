@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>余额管理</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <link rel="stylesheet" href="css/borain-timeChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.4.6.0.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/borain-timeChoice.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+
+    <style>
+        body,
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #game {
+            position: relative;
+            padding: 20px;
+        }
+
+        #phonediv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            font-size: 16px;
+        }
+
+        #phonediv14,
+        #phonediv13,
+        #phonediv12,
+        #phonediv10,
+        #phonediv1,
+        #phonediv9,
+        #phonediv7,
+        #phonediv3 {
+            position: absolute;
+            color: #7b7b7b;
+        }
+
+        #phonediv1 {
+            left: 0px;
+        }
+
+        #phonediv3 {
+            left: 191px;
+        }
+
+        #phonediv5 {
+            left: 391px;
+        }
+
+        #phonediv7 {
+            left:482px;
+        }
+
+        #phonediv13,
+        #phonediv10,
+        #phonediv11,
+        #phonediv8,
+        #phonediv2,
+        #phonediv4 {
+            position: absolute;
+            width: 100px;
+            height: 32px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 82px;
+            color: #7b7b7b;
+        }
+
+        #phonediv4 {
+            left: 242px;
+        }
+
+        #phonediv6 {
+            left: 444px;
+        }
+
+        #phonediv8 {
+            left: 573px;
+        }
+
+        #phonediv10 {
+            left: 1029px;
+        }
+
+        #phonediv13{
+            left: 840px;
+        }
+
+
+        #phonebtndiv,
+        #bannerbtndiv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+        }
+
+        #phonediv11 {
+            position: absolute;
+            background: #469ad0;
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            left: 1400px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+        }
+
+        #phonediv14 {
+            left: 1200px;
+        }
+
+        #phonediv9 {
+            left: 956px;
+        }
+
+
+        #phonediv12{
+            left: 762px;
+        }
+
+        #tabledata {
+            position: relative;
+            width: 100%;
+        }
+
+        #tabledata tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata td {
+            position: relative;
+            text-align: center;
+        }
+
+
+        #showdiv,
+        #editdiv {
+            position: relative;
+            display: none;
+        }
+
+        #showdiv {
+            display: block;
+        }
+
+        .editli2 input,
+        .editli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="exitAndEntryCtrl">
+<div id="game">
+
+    <div id="showdiv">
+        <div id="phonediv">
+            <span id="phonediv1">进场时间：</span>
+            <input class="start-two" id="phonediv2" type="text"/>
+            <span id="phonediv3">——</span>
+            <input class="start-two2" id="phonediv4" type="text" ng-model="$parent.endtime"/>
+            <span id="phonediv7">会员账户：</span>
+            <input id="phonediv8" type="text" value="" ng-model="$parent.phone"/>
+
+            <!--新增-->
+
+            <span id="phonediv9">状态：</span>
+            <select id="phonediv10" ng-model="$parent.status">
+                <option value ="">全部</option>
+                <option value ="finished">已出场</option>
+                <option value="unfinish">未出场</option>
+            </select>
+
+            <span id="phonediv12">卡类型：</span>
+            <select id="phonediv13" ng-model="$parent.charge_type">
+                <option value ="">全部</option>
+                <option value ="charge_by_num">次卡</option>
+                <option value="charge_by_time">天数卡</option>
+            </select>
+
+            <button id="phonediv11" ng-click="rechargeSearch(1)">查询</button>
+            <span id="phonediv14">进场人数： {{number}}</span>
+        </div>
+        <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td>会员账户</td>
+                <td>套餐类型</td>
+                <td>进场时间</td>
+                <td>出场时间</td>
+                <td>出场操作</td>
+                <td>消费点数</td>
+                <td>套餐余额（天/次）</td>
+                <td>状态</td>
+                <td>操作</td>
+
+            </tr>
+            </tbody>
+
+
+            <tbody id="tabledata1">
+            <tr ng-repeat="x in list">
+                <td>{{x.user_no}}</td>
+                <td>{{x.pack_type}}</td>
+                <td>{{x.et}}</td>
+                <td>{{x.leave}}</td>
+                <td>{{x.operate}}</td>
+                <td>{{x.count}}</td>
+                <td>{{x.balance_recount}}</td>
+                <td>{{x.status}}</td>
+                <td><button  ng-click="exit(x._id)">出场</button></td>
+            </tr>
+
+            </tbody>
+
+        </table>
+        <div id="phonebtndiv">
+            <button id="lastPagedom" ng-click="lastPage()">上一页</button>
+            {{page_num}}
+            <button id="nextPagedom" ng-click="nextPage()">下一页</button>
+            总数{{count}}
+        </div>
+    </div>
+</div>
+<script src="js/util.js"></script>
+<script src="js/APIConnection.min.js"></script>
+<script src="js/sess.js"></script>
+<script src="js/app.js"></script>
+<script type="text/javascript" src="js/exitAndEntry.js"></script>
+<script src="js/index.js"></script>
+<script src="js/server1.js"></script>
+<script>
+    var search = decodeURI(location.search);
+    var searchObj = {
+        url: search
+    };
+    if (search != "") {
+        search.substr(1, search.length)
+            .split("&").forEach(function (data) {
+            var datas = data.split("=");
+            searchObj[datas[0]] = datas[1];
+        });
+    }
+    console.log(searchObj);
+
+    var acc = searchObj.acc;
+    var pwd = searchObj.pwd;
+    if (acc == undefined) {
+        acc = "";
+    }
+    if (pwd == undefined) {
+        pwd = "";
+    }
+
+    function start() {
+        if (acc != "" && pwd != "") {
+            server.login(acc, pwd, function (data) {
+                GameObj.login = data;
+                if (data.ustr != undefined && data.ustr != "") {
+
+                } else {
+                    //  level分为 YM YMD H HM 四个有效值，分别表示年月 年月日 年月日时 年月日时分,less表示是否不可小于当前时间。年-月-日 时:分 时为24小时制
+                    //  为确保控件结构只出现一次，在有需要的时候进行一次调用。
+                    onLoadTimeChoiceDemo();
+
+                    //        borainTimeChoice({
+                    //            start: ".start",
+                    //            end: ".end",
+                    //            level: "YM",
+                    //            less: true
+                    //        });
+
+                    borainTimeChoice({
+                        start: ".start-two",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+                    borainTimeChoice({
+                        start: ".start-two2",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+
+                    borainTimeChoice({
+                        start: ".editkai",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+                    borainTimeChoice({
+                        start: ".editend",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+
+
+                }
+                //pageObj.alert(data.ustr);
+            });
+        }
+    }
+
+
+    var searchTime = function () {
+        var data1 = document.getElementById("begin").value.split("-");
+        var data2 = document.getElementById("end").value.split("-");
+        var time1 = getTimes(data1);
+        var time2 = getTimes(data2);
+        ajax("http://www.kingcg.net/case1/quanping/php/imglist.php?time1=" + time1 + "&time2=" + time2);
+    }
+
+    function getTimes(data1) {
+        var date = new Date();
+        date.setFullYear(parseInt(data1[0]));
+        date.setMonth(parseInt(data1[1]) - 1);
+        date.setDate(parseInt(data1[2]));
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return parseInt(date.getTime() / 1000);
+        //            return parseInt(date.getTime());
+    }
+
+
+    var imgfid = "";
+
+
+    window.onload = function () {
+        util.init(function () {
+            start();
+        });
+
+    }
+
+</script>
+
+</body>
+
+</html>

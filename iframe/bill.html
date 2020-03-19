@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>账单管理</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+    <link rel="stylesheet" href="css/borain-timeChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.4.6.0.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/borain-timeChoice.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+
+    <style>
+        body,
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #game {
+            position: relative;
+            padding: 20px;
+        }
+
+        #phonediv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            font-size: 16px;
+        }
+
+        #phonediv10,
+        #phonediv1,
+        #phonediv5,
+        #phonediv7,
+        #phonediv3 {
+            position: absolute;
+            color: #7b7b7b;
+        }
+
+        #phonediv1 {
+            left: 0px;
+        }
+
+        #phonediv3 {
+            left: 191px;
+        }
+
+        #phonediv5 {
+            left: 391px;
+        }
+
+        #phonediv7 {
+            left: 544px;
+        }
+
+        #phonediv11,
+        #phonediv8,
+        #phonediv2,
+        #phonediv6,
+        #phonediv4 {
+            position: absolute;
+            width: 100px;
+            height: 32px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 72px;
+            color: #7b7b7b;
+        }
+
+        #phonediv4 {
+            left: 242px;
+        }
+
+        #phonediv6 {
+            left: 444px;
+        }
+
+        #phonediv8 {
+            left: 629px;
+        }
+
+        #phonediv10 {
+            left: 764px;
+        }
+
+        #phonediv11 {
+            left: 811px;
+        }
+
+        #phonebtndiv,
+        #bannerbtndiv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+        }
+
+        #bannerbtndiv1,
+        #bannerbtndiv2,
+        #phonebtn,
+        #phonediv9 {
+            position: absolute;
+            background: #469ad0;
+            width: 150px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 0px;
+        }
+
+        #bannerbtndiv1 {
+            width: 100px;
+        }
+
+        #bannerbtndiv2 {
+            width: 100px;
+            left: 150px;
+            background: #92b4ca;
+        }
+
+        #phonediv9 {
+            left: 956px;
+            width: 100px;
+        }
+
+
+        #tabledata {
+            position: relative;
+            width: 100%;
+        }
+
+        #tabledata tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata td {
+            position: relative;
+            text-align: center;
+        }
+
+
+        #showdiv,
+        #editdiv {
+            position: relative;
+            display: none;
+        }
+
+        #showdiv {
+            display: block;
+        }
+
+        #editul {
+            position: relative;
+
+        }
+
+        .editli {
+            position: relative;
+            min-height: 30px;
+            line-height: 30px;
+            list-style: none;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .editli1 {
+            position: absolute;
+            width: 100px;
+            color: gray;
+        }
+
+        .editli2 {
+            position: relative;
+            left: 100px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            font-size: 16px;
+            min-height: 30px;
+            width: 300px;
+        }
+
+        .editli2 input,
+        .editli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+        #yiban1,
+        #yiban2 {
+            width: 46%;
+        }
+
+        #yiban2 {
+            left: 2%;
+        }
+
+        .paddtb {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        .shuoming {
+            position: relative;
+            font-size: 12px;
+            color: gray;
+        }
+
+        .editclass {
+            color: blue;
+            cursor: pointer;
+        }
+
+        #fileimg {
+            position: relative;
+            max-width: 600px;
+            max-height: 140px;
+            min-height: 40px;
+            left: 100px;
+        }
+
+        .hfont {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body ng-app="myApp" ng-controller="orderCtrl">
+<div id="game">
+
+    <div id="showdiv">
+        <div id="phonediv">
+            <span id="phonediv1">充值时间：</span>
+            <input class="start-two" id="phonediv2" type="text"/>
+            <span id="phonediv3">——</span>
+            <input class="start-two2" id="phonediv4" type="text"
+            />
+            <span id="phonediv7">会员账户：</span>
+            <input id="phonediv8" type="text" value="" ng-model="$parent.phone"/>
+            <button id="phonediv9" ng-click="billList(1)">查询</button>
+              <span style="margin-left: 1200px">营业额（元）{{sum_count}}</span>
+        
+        </div>
+        <table id="tabledata" border="1px solid gray" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td>会员账户</td>
+                <td>套餐信息</td>
+                <td>操作类型</td>
+                <td>充值时间</td>
+                <td>充值金额(元)</td>
+
+            </tr>
+            </tbody>
+
+
+            <tbody id="tabledata1">
+            <tr ng-repeat="x in list">
+                <td>{{x.user_no}}</td>
+                <td>{{x.taocan}}</td>
+                <td>{{x.operate}}</td>
+                <td>{{x.date}}</td>
+                <td>{{x.fee}}</td>
+            </tr>
+
+            </tbody>
+
+        </table>
+        <div id="phonebtndiv">
+            <button id="lastPagedom" ng-click="lastPage()">上一页</button>
+            {{page_num}}
+            <button id="nextPagedom" ng-click="nextPage()">下一页</button>
+            总数{{count}}
+        </div>
+    </div>
+
+</div>
+<script src="js/util.js"></script>
+<script src="js/APIConnection.min.js"></script>
+<script src="js/sess.js"></script>
+<script src="js/app.js"></script>
+<script src="js/orderList.js"></script>
+<script src="js/index.js"></script>
+<script src="js/server1.js"></script>
+<script>
+    function openBianji(datas) {
+        document.getElementById("showdiv").style.display = "none";
+        document.getElementById("editdiv").style.display = "block";
+        if (datas) {
+            currupdatdata = datas;
+            isupdatedata = true;
+            document.getElementById("v_order").value = datas.order;
+            document.getElementById("v_name").value = datas.name;
+            document.getElementById("yiban1").value = datas.location;
+            document.getElementById("yiban2").value = datas.class;
+            document.getElementById("v_kaitime").value = datas.start_time.split(" ")[0];
+            document.getElementById("v_endtime").value = datas.end_time.split(" ")[0];
+            document.getElementById("v_url").value = datas.link;
+
+            var src = apiInfoData.server_info.download_path + datas.fid;
+            document.getElementById("fileimg").src = src;
+            imgfid = datas.fid;
+        } else {
+            currupdatdata = {};
+            isupdatedata = false;
+            document.getElementById("v_order").value = 0;
+            document.getElementById("v_name").value = "";
+            document.getElementById("yiban2").value = "";
+            document.getElementById("v_kaitime").value = "";
+            document.getElementById("v_endtime").value = "";
+            document.getElementById("v_url").value = "";
+            document.getElementById("fileimg").src = "";
+            imgfid = "";
+        }
+    }
+
+    function saveBianji() {
+        document.getElementById("showdiv").style.display = "block";
+        document.getElementById("editdiv").style.display = "none";
+        isupdatedata = false;
+    }
+
+    //        openBianji();
+
+
+    var search = decodeURI(location.search);
+    var searchObj = {
+        url: search
+    };
+    if (search != "") {
+        search.substr(1, search.length)
+            .split("&").forEach(function (data) {
+            var datas = data.split("=");
+            searchObj[datas[0]] = datas[1];
+        });
+    }
+    console.log(searchObj);
+
+    var acc = searchObj.acc;
+    var pwd = searchObj.pwd;
+    if (acc == undefined) {
+        acc = "";
+    }
+    if (pwd == undefined) {
+        pwd = "";
+    }
+
+    function start() {
+        if (acc != "" && pwd != "") {
+            server.login(acc, pwd, function (data) {
+                GameObj.login = data;
+                if (data.ustr != undefined && data.ustr != "") {
+
+                } else {
+                    //  level分为 YM YMD H HM 四个有效值，分别表示年月 年月日 年月日时 年月日时分,less表示是否不可小于当前时间。年-月-日 时:分 时为24小时制
+                    //  为确保控件结构只出现一次，在有需要的时候进行一次调用。
+                    onLoadTimeChoiceDemo();
+
+                    //        borainTimeChoice({
+                    //            start: ".start",
+                    //            end: ".end",
+                    //            level: "YM",
+                    //            less: true
+                    //        });
+
+                    borainTimeChoice({
+                        start: ".start-two",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+                    borainTimeChoice({
+                        start: ".start-two2",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+
+                    borainTimeChoice({
+                        start: ".editkai",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+                    borainTimeChoice({
+                        start: ".editend",
+                        end: "",
+                        level: "YMD",
+                        less: false
+                    });
+
+
+                }
+                //pageObj.alert(data.ustr);
+            });
+        }
+    }
+
+
+    var searchTime = function () {
+        var data1 = document.getElementById("begin").value.split("-");
+        var data2 = document.getElementById("end").value.split("-");
+        var time1 = getTimes(data1);
+        var time2 = getTimes(data2);
+        ajax("http://www.kingcg.net/case1/quanping/php/imglist.php?time1=" + time1 + "&time2=" + time2);
+    }
+
+    function getTimes(data1) {
+        var date = new Date();
+        date.setFullYear(parseInt(data1[0]));
+        date.setMonth(parseInt(data1[1]) - 1);
+        date.setDate(parseInt(data1[2]));
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return parseInt(date.getTime() / 1000);
+        //            return parseInt(date.getTime());
+    }
+
+
+    var imgfid = "";
+
+    function changePicture() {
+        var parent = document.getElementById("filediv");
+        var fileList = parent.files;
+        if (fileList.length >= 1) {
+            changeLoad(fileList, function (src, fid) {
+                console.log(src, fid);
+                document.getElementById("fileimg").src = src;
+                imgfid = fid;
+                //                    GameObj.cachePage[2].picture[num] = fid;
+                //                    GameObj.cachePage[2].showPicture();
+                parent.value = "";
+            });
+        }
+    }
+
+
+    function admin_bannerlist() {
+        var location = document.getElementById("phonediv2").value;
+
+        var time1 = document.getElementById("phonediv4").value;
+        var time2 = document.getElementById("phonediv6").value;
+        if (time1 != "") {
+            time1 = getTimes(time1.split("-"));
+            console.log(time1);
+        }
+        if (time2 != "") {
+            time2 = getTimes(time2.split("-"));
+            console.log(time2);
+        }
+
+        var starttime = time1;
+        var endtime = time2;
+        var status = document.getElementById("phonediv8").value;
+
+        //            	location:app/pc         不过滤就为空
+        //	starttime: unix时间戳   不过滤就为空
+        //	endtime: unix时间戳     不过滤就为空
+        //	status:已结束/未开始/进行中     不过滤就为空
+
+        server.admin_bannerlist(location, starttime, endtime, status, function (data) {
+            if (data.ustr != undefined && data.ustr != "") {
+                alert(data.ustr);
+            } else {
+                buildList(data);
+            }
+        });
+    }
+
+    var infoData = [];
+
+    function openedit(i) {
+        console.log("编辑", i, infoData[i]);
+        openBianji(infoData[i]);
+    }
+
+    function buildList(data) {
+        var arr = [];
+        if (data.info && data.info.length >= 1) {
+            arr = data.info;
+        }
+        infoData = arr;
+        var tbody = "";
+        for (var i = 0; i < arr.length; i++) {
+            var one = arr[i];
+            tbody += "<tr>";
+            tbody += '<td>' + (i + 1) + '</td>';
+            tbody += '<td>' + one.name + '</td>';
+            tbody += '<td>' + one.location + '</td>';
+            tbody += '<td>' + one.class + '</td>';
+            tbody += '<td>' + (one.linktype == "extenal" ? "APP外页面" : "APP内页面") + '</td>'; //跳转类型
+            tbody += '<td>' + one.link + '</td>';
+            tbody += '<td>' + one.time + '</td>';
+            tbody += '<td>' + one.start_time + '</td>';
+            tbody += '<td>' + one.end_time + '</td>';
+            tbody += '<td>' + one.order + '</td>';
+            tbody += '<td>' + one.status + '</td>';
+            tbody += '<td onclick="openedit(' + i + ')" class="editclass">编辑</td>';
+            tbody += "</tr>";
+        }
+        document.getElementById("tabledata1").innerHTML = tbody;
+    }
+
+    function admin_banneradd() {
+        var time1 = document.getElementById("v_kaitime").value;
+        var time2 = document.getElementById("v_endtime").value;
+        if (time1 != "") {
+            time1 = getTimes(time1.split("-"));
+        }
+        if (time2 != "") {
+            time2 = getTimes(time2.split("-"));
+        }
+        var name = document.getElementById("v_name").value;
+        var location = document.getElementById("yiban1").value;
+        var classv = document.getElementById("yiban2").value;
+        var starttime = time1;
+        var endtime = time2;
+        var link = document.getElementById("v_url").value;
+        var linktype = document.getElementById("v_linktype").value; //internal/extenal
+        var picture = imgfid; //图片 (fid)
+        var order = document.getElementById("v_order").value;
+        if (name == "") {
+            alert("请输入名字");
+            return;
+        }
+        if (order == "") {
+            alert("请输入排序");
+            return;
+        }
+        if (classv == "") {
+            alert("请选择年级");
+            return;
+        }
+        if (starttime == "") {
+            alert("请选择开始时间");
+            return;
+        }
+        if (endtime == "") {
+            alert("请选择结束时间");
+            return;
+        }
+        if (link == "") {
+            alert("请设置跳转链接");
+            return;
+        }
+        if (picture == "") {
+            alert("请设置banner图片");
+            return;
+        }
+        if (isupdatedata) {
+            //更新数据
+            var id = currupdatdata._id;
+            order = 1;
+            server.admin_bannermodify(id, name, location, classv, starttime, endtime, link, linktype, picture, order, function (data) {
+                if (data.ustr != undefined && data.ustr != "") {
+                    alert(data.ustr);
+                } else {
+                    alert(data.info);
+                    saveBianji();
+                    admin_bannerlist();
+                }
+            });
+        } else {
+            server.admin_banneradd(name, location, classv, starttime, endtime, link, linktype, picture, order, function (data) {
+                if (data.ustr != undefined && data.ustr != "") {
+                    alert(data.ustr);
+                } else {
+                    alert(data.info);
+                    saveBianji();
+                    admin_bannerlist();
+                }
+            });
+        }
+
+
+    }
+
+    var GameObj = {};
+    var isupdatedata = false;
+    var currupdatdata = {};
+    window.onload = function () {
+        util.init(function () {
+            start();
+        });
+
+    }
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>管理后台</title>
+    <!--    <link rel="stylesheet" href="css/index.css">-->
+    <style>
+        boduy,
+        * {
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+        }
+
+        #games {
+            position: absolute;
+            /*            padding: 10px;*/
+            min-height: 100%;
+            min-width: 100%;
+        }
+
+        #lefts {
+            position: absolute;
+            width: 10%;
+            height: 100%;
+            margin-right: 10px;
+            top: 0px;
+            /* background-color: #409EFF; */
+            border-right: 1px solid #ccc;
+        }
+
+        #lefts ul {
+            position: relative;
+            text-align: center;
+            top: 30px;
+        }
+
+        #lefts li {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+        }
+
+        #lefts li:hover{
+            background-color: #EFF6FF;
+        }
+        #rights {
+            position: absolute;
+            width: 88%;
+            height: 100%;
+            left: 11%;
+            top: 0px;
+        }
+
+        #iframeid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 0px solid gray;
+        }
+
+        #topbanner {
+            position: absolute;
+            height: 60px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        #listul,
+        #account {
+            position: absolute;
+            line-height: 60px;
+            top: 0px;
+            bottom: 0px;
+            width: 100%;
+            margin: auto 0px;
+            height: 60px;
+
+        }
+
+        #bottomcenter {
+            position: absolute;
+            top: 60px;
+            width: 100%;
+            height: calc(100vh - 60px);
+        }
+
+        #account {
+            position: absolute;
+            right: 0px;
+            text-align: center;
+            width: 200px;
+            height: 100%;
+        }
+
+        #account span {
+            position: relative;
+            margin-left: 10px;
+            color: blue;
+            cursor: pointer;
+        }
+
+        #listul ul {
+            position: absolute;
+            width: 1300px;
+            height: 100%;
+            left: 0px;
+            right: 0px;
+            margin: auto;
+            overflow: hidden;
+
+        }
+
+        #listul ul li {
+            float: left;
+            position: relative;
+            width: 200px;
+            height: 100%;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            text-align: center;
+            margin-left: 10px;
+        }
+
+        #listul ul li .li1 {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .seleli {
+            background: rgba(0, 0, 0, 0.5);
+            color: blue;
+        }
+
+        #listul ul li .li2 {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            top: 0px;
+            right: 0px;
+            line-height: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            z-index: 2;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="games">
+        <div id="topbanner">
+             <img style="margin-top: 5px;margin-left: 10px" src="iframe/img/logo.png" alt="" width="50" height="50" />
+                 <div style="margin-left: 1100px;margin-top: -30px">
+     <a href="#" onclick="top.location.href='login.html'">退出系统</a>    <!-- 这个会跳出整个页面 --></div>
+        </div>
+        <div id="bottomcenter">
+            <div id="lefts">
+                <ul>
+                    <li id="li1" onclick="setiframe(1)">充值管理</li>
+                    <li id="li2" onclick="setiframe(2)">套餐管理</li>
+                    <li id="li3" onclick="setiframe(3)">账单管理</li>
+                    <li id="li4" onclick="setiframe(4)">余额明细</li>
+                    <li id="li5" onclick="setiframe(5)">出入管理</li>
+                    <li id="li6" onclick="setiframe(6)">找回密码</li>
+                    <li id="li7" onclick="setiframe(7)">标语管理</li>
+                    <li id="li8" onclick="setiframe(8)">段位管理</li>
+                    <li id="li9" onclick="setiframe(9)">活动管理</li>
+                </ul>
+            </div>
+            <div id="rights">
+                <iframe id="iframeid" src=""></iframe>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        var srcObj = {
+            1: "iframe/recharge.html",
+            2: "iframe/package.html",
+            3: "iframe/bill.html",
+            4: "iframe/balanceDetails.html",
+            5:"iframe/exitAndEntry.html",
+            6: "iframe/retrievePassword.html",
+            7:"iframe/sloganManagement.html",
+            8: "iframe/levelManagement.html",
+            9: "iframe/promotionManagement.html"
+        };
+     function setiframe(type) {
+            document.getElementById("iframeid").src = srcObj[type] + "?acc=" + acc + "&pwd=" + pwd;
+            for (var i = 1; i <= 11; i++) {
+                var dom = document.getElementById("li" + i);
+                if (i == type) {
+                    dom.style.color = "#409EFF";
+                } else {
+                    dom.style.color = "black";
+                }
+
+            }
+        }
+
+    </script>
+
+    <!---->
+    <script src="iframe/js/util.js"></script>
+    <script src="js/APIConnection.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="iframe/js/server.js"></script>
+    <script src="iframe/js/server1.js"></script>
+    <script src="js/index.js"></script>
+
+</body>
+
+</html>

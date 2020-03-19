@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>登录</title>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script src="js/APIConnection.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container text-center">
+        <div style="padding-top: 70px;" class="text-center">
+            <div>
+                <img class="mb-4" src="iframe/img/logo.png" alt="" width="150" height="150" />
+            </div>
+            <br/>
+       
+
+            <div class="row">
+                <div class="col-xs-4"></div>
+                <div class="col-xs-4">
+                    <div style="padding-bottom: 5px">
+                        <input type="text" class="form-control" id="login_name" placeholder="手机号" required="true" />
+                    </div>
+                    <div style="padding-bottom: 5px">
+                        <input type="password" id="login_passwd" class="form-control" placeholder="密码" required="true" />
+                    </div>
+                    <button class="btn btn-primary btn-block" type="submit" id="login_btn" onclick="loginlogin()">登录</button>
+                </div>
+                <div class="col-xs-4"></div>
+            </div>
+
+        </div>
+
+
+        <!-- 
+
+
+用户名：<input type="text" name="用户名" id="login_name"  placeholder="账号"></br>
+密码：<input type="password" name="密码" id="login_passwd"  placeholder="密码"></br>
+<button onclick="loginlogin()" >登录</button>
+ -->
+    </div>
+</body>
+<script src="iframe/js/util.js"></script>
+<script src="js/app.js"></script>
+<script src="js/sess.js"></script>
+<script src="iframe/js/server.js"></script>
+<script src="js/APIConnection.min.js"></script>
+<script src="js/index.js"></script>
+<script src="css/jquery.min.js"></script>
+<script src="css/bootstrap.min.js"></script>
+<!--  -->
+<!--    <script src="js/login.js"></script> -->
+
+<script type="text/javascript">
+    var loginlogin = function() {
+        var login_name = document.getElementById("login_name").value;
+        var login_passwd = document.getElementById("login_passwd").value;
+        server.login(login_name, login_passwd, function(data) {
+            GameObj.login = data;
+            if (data.ustr != undefined && data.ustr != "") {
+                alert("登录失败！")
+            } else {
+
+                alert("登录成功！")
+                localStorage.setItem("userid", data.user_info._id);
+                localStorage.setItem("login_name", login_name);
+                localStorage.setItem("login_passwd", login_passwd);
+
+                window.location.href = 'index.html';
+            }
+        })
+    }
+
+</script>
+
+</html>

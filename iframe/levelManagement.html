@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>段位管理</title>
+    <link rel="stylesheet" href="css/borain-timeChoice.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.4.6.0.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.min.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/borain-timeChoice.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <style>
+        body,
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        #game {
+            position: relative;
+            padding: 20px;
+        }
+
+        #phonediv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            font-size: 16px;
+        }
+
+        #phonediv7 {
+            position: absolute;
+            color: #7b7b7b;
+            left: 907px;
+        }
+
+
+        #phonediv8 {
+            position: absolute;
+            width: 100px;
+            height: 32px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 72px;
+            color: #7b7b7b;
+            left: 1008px;
+        }
+
+        #phonebtndiv,
+        #bannerbtndiv {
+            position: relative;
+            height: 60px;
+            width: 100%;
+        }
+
+        #phonediv9 {
+            position: absolute;
+            background: #469ad0;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 1137px;
+            width: 100px;
+        }
+
+        #phonediv10 {
+            position: absolute;
+            background: #469ad0;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 936px;
+            width: 100px;
+        }
+
+        #phonediv11 {
+            position: absolute;
+            background: #469ad0;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 1059px;
+            width: 100px;
+        }
+
+        #phonediv12 {
+            position: absolute;
+            background: #469ad0;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            left: 1179px;
+            width: 100px;
+        }
+
+
+        /* #tabledata {
+            position: relative;
+            width: 50%;
+        } */
+
+        #tabledata tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata td {
+            position: relative;
+            text-align: center;
+        }
+
+
+        #tabledata2 {
+            position: relative;
+            width: 50%;
+        }
+
+        #tabledata2 tr {
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        #tabledata2 td {
+            position: relative;
+            text-align: center;
+        }
+
+        #showdiv,
+        #editdiv {
+            position: relative;
+            display: none;
+        }
+
+        #showdiv {
+            display: block;
+        }
+
+
+        #editul {
+            position: absolute;
+            left: 888px;
+            top: 130px;
+        }
+
+        .editli {
+            position: relative;
+            min-height: 30px;
+            line-height: 30px;
+            list-style: none;
+            font-size: 16px;
+            margin-bottom: 14px;
+        }
+
+        .editli1 {
+            position: absolute;
+            width: 100px;
+            color: gray;
+        }
+
+        .editli2 {
+            position: relative;
+            left: 100px;
+            top: 0px;
+            bottom: 0px;
+            margin: auto 0px;
+            font-size: 16px;
+            min-height: 30px;
+            width: 300px;
+        }
+
+        .editli2 input,
+        .editli2 select {
+            position: relative;
+            width: 100%;
+            font-size: 16px;
+            height: 30px;
+        }
+
+        #yiban1,
+        #yiban2 {
+            width: 46%;
+        }
+
+        #yiban2 {
+            left: 2%;
+        }
+
+        .paddtb {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+
+        .shuoming {
+            position: relative;
+            font-size: 12px;
+            color: gray;
+        }
+
+        .editclass {
+            color: blue;
+            cursor: pointer;
+        }
+
+        #fileimg {
+            position: relative;
+            max-width: 600px;
+            max-height: 140px;
+            min-height: 40px;
+            margin-left: 0%;
+            margin-top: 1%;
+        }
+
+        .hfont {
+            color: blue;
+            font-weight: bold;
+        }
+        .main-body{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        .table{
+            margin-top: 10px;
+        }
+    </style>
+<!-- <script src="js/level.js"></script> -->
+</head>
+
+<body ng-app="myApp" ng-controller="levelCtrl">
+
+    <!-- border="1px solid gray" -->
+    <div class="main-body">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a >段位管理</a></li>
+        </ul>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                段位列表
+            </div>
+            <div class="panel-body">
+                <div class="search">
+                    
+                    <button type="button" class="btn btn-default" ng-click="showAdd('add','')">新增</button>
+                    
+                    <!-- <button type="button" class="btn  btn-default" id="add-level" ng-click="openAddModel()">新增</button> -->
+                </div>
+                
+                <div class="table">
+
+                
+                    <table id="tabledata" class="table table-striped table-bordered" cellspacing="0" cellpadding="0">
+                        <tbody>
+                            <tr>
+                                <td>段位名称</td>
+                                <td>积分(上限)</td>
+                                <td>积分(下限)</td>
+                                <td>优惠</td>
+                                <td>操作</td>
+                            </tr>
+                        </tbody>
+                        <tbody id="tabledata1">
+                            <tr ng-repeat="item in packList">
+                                <td>{{item.count}}</td>
+                                <td>{{item.count}}</td>
+                                <td>{{item.fee}}</td>
+                                <td>{{item.gift_count}}</td>
+                                <td>
+                                <button type="button" class="btn btn-info" ng-click="showAdd('modify',item)">修改</button>
+                                <button type="button" class="btn btn-danger">删除</button>
+                                </td>                            
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 新建 -->
+    <div  class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        <!-- 新增 -->
+                        <span ng-show="addType =='add'">新增</span>
+                        <span ng-show="addType =='modify'">修改</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="firstname" class="col-sm-2 control-label">段位名称</label>
+                            <div class="col-sm-10">
+                                <!-- ctype -->
+                                <input type="text" ng-model="modifyItem.fee"  class="form-control input-sm valid" id="addLevelName" placeholder="请输入段位名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname" class="col-sm-2 control-label">积分(下限)</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="modifyItem.type"  class="form-control input-sm valid" value="" id="" placeholder="请输入一个大于0的数字">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname" ng-model="modifyItem.count"  class="col-sm-2 control-label">积分(上限)</label>
+                            <div class="col-sm-10">
+                                <input type="text" ng-model="modifyItem.ut"  class="form-control input-sm valid" id="" placeholder="请输入一个大于0的数字">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname" class="col-sm-2 control-label">优惠情况</label>
+                            <div class="col-sm-10">
+                                <div class="input-group input state-success">
+                                    <input type="text" class="form-control input-sm valid" ng-model="modifyItem._id" id="" name="" placeholder="请输入一个0到100的数字"
+                                         style="border-color: rgb(210, 214, 222);">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default btn-sm disabled normalCursor" type="button">%</button>
+                                    </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                    </button>
+                    <button type="button" class="btn btn-primary" ng-click="levelAdd()">
+                        提交
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+
+
+    </div>
+
+
+
+</div>
+
+
+
+    <script src="js/util.js"></script>
+    <script src="js/APIConnection.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/server1.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/level.js"></script>
+    <script src="js/index.js"></script>
+
+
+</body>
+
+</html>
